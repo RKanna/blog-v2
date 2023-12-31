@@ -1,7 +1,7 @@
 import Link from "next/link";
 const Header = () => {
   return (
-    <section className="w-full h-6rem flex justify-between items-center bg-blue-50 pl-3 pr-3 lg:pl-[10rem] lg:pr-[10rem]">
+    <section className="w-full h-6rem flex justify-between items-center bg-blue-50 pl-3 pr-3 lg:pl-[10rem] lg:pr-[10rem] mb-10">
       <Link href="/">
         <div className="h-0.5rem">
           <img src="/images/logo.png" alt="" className="h-[5rem]" />

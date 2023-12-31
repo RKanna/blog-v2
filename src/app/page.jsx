@@ -3,7 +3,10 @@ import Card from "./components/Card";
 
 export default function Home() {
   return (
-    <main className="flex flex-col justify-center items-center p-3">
+    <main className="flex flex-col items-center min-h-screen p-3">
+      <div>
+        <h1>Recent Blog Posts</h1>
+      </div>
       <Card />
     </main>
   );

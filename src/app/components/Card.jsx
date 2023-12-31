@@ -1,9 +1,9 @@
 const Card = () => {
   return (
-    <div className="w-full h-[10rem] bg-blue-200 p-3 rounded-lg">
+    <section className="w-full lg:w-3/4 sm:w-1/2 md:w-1/2 h-[10rem] bg-blue-200 p-3 rounded-lg">
       <h1>hi</h1>
       <p class="text-sm md:text-lg lg:text-xl">Responsive Text</p>
-    </div>
+    </section>
   );
 };
 

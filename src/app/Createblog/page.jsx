@@ -1,9 +1,23 @@
+"use client";
 import React from "react";
+import { useLayoutEffect, useEffect } from "react";
+import { useAuthContext } from "../Context/AuthContext";
+import { redirect } from "next/navigation";
+import { toast } from "react-toastify";
 
 const CreateBlog = () => {
+  const { userEmail } = useAuthContext();
+  useLayoutEffect(() => {
+    if (!userEmail) {
+      toast("Login Required");
+      redirect("/Login");
+    }
+  }, []);
+
   return (
-    <section className="w-full min-h-screen sm:w-3/4 md:w-1/2 lg:w-1/2 mx-auto">
+    <section className="w-full min-h-screen mx-auto sm:w-3/4 md:w-1/2 lg:w-1/2">
       <form action="" className="p-5">
+        <h1 className="mb-3 text-2xl text-center">Create Blog</h1>
         <div className="mb-5">
           <label
             htmlFor="title"
@@ -93,7 +107,7 @@ const CreateBlog = () => {
           </div>
           <label
             htmlFor="remember"
-            className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            className="text-sm font-medium text-gray-900 ms-2 dark:text-gray-300"
           >
             Remember me
           </label>

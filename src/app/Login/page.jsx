@@ -1,16 +1,46 @@
+"use client";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { useAuthContext } from "../Context/AuthContext";
+import { toast } from "react-toastify";
 
-const page = () => {
+const Login = () => {
+  const { email, setEmail, password, setPassword, updateUserEmail } =
+    useAuthContext();
+  const router = useRouter();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      // .post(`http://localhost:3001/login`, { email, password })
+      .post(`https://tame-pink-pike-sock.cyclic.app/login`, { email, password })
+      .then((result) => {
+        console.log(result);
+        if (result.data === "success") {
+          updateUserEmail(email);
+          router.push("/");
+          toast("Login Success");
+        } else if (result.data === "The password is incorrect") {
+          window.alert("Password is incorrect");
+        } else if (result.data === "The Email is not Registered with us") {
+          window.alert("Email is Not Registered");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <section
       className="flex items-center justify-center min-h-screen"
       style={{ minHeight: "calc(100vh - 11rem)" }}
     >
-      <form className="max-w-sm mx-auto">
+      <form className="max-w-sm mx-auto" onSubmit={handleSubmit}>
         <h1 className="mb-6 text-2xl text-center">Sign In</h1>
-        <div classNameName="mb-5 ">
+        <div className="mb-5 ">
           <label
-            for="email"
+            htmlFor="email"
             className="block mb-2 text-sm text-gray-900 lg:font-medium dark:text-gray-900 lg:text-xl"
           >
             Email
@@ -18,14 +48,16 @@ const page = () => {
           <input
             type="email"
             id="email"
-            className="mb-5 sm:w-full md:w-1/2 lg:w-[20rem] lg:h-[3.5rem] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            name="email"
+            className="mb-5 sm:w-full md:w-full lg:w-[20rem] lg:h-[3.5rem] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="name@flowbite.com"
             required
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="mb-5">
           <label
-            for="password"
+            htmlFor="password"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-900 lg:text-xl"
           >
             Password
@@ -33,8 +65,10 @@ const page = () => {
           <input
             type="password"
             id="password"
-            className="sm:w-full md:w-1/2 lg:w-[20rem] lg:h-[3.5rem] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            name="password"
+            className="sm:w-full md:w-full lg:w-[20rem] lg:h-[3.5rem] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             required
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div className="flex items-start mb-5">
@@ -48,7 +82,7 @@ const page = () => {
             />
           </div>
           <label
-            for="remember"
+            htmlFor="remember"
             className="text-sm font-medium text-gray-900 ms-2 dark:text-gray-300"
           >
             Remember me
@@ -72,4 +106,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Login;

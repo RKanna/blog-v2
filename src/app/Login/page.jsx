@@ -15,7 +15,10 @@ const Login = () => {
     e.preventDefault();
     axios
       // .post(`http://localhost:3001/login`, { email, password })
-      .post(`https://tame-pink-pike-sock.cyclic.app/login`, { email, password })
+      .post(`https://tame-pink-pike-sock.cyclic.app/login/`, {
+        email,
+        password,
+      })
       .then((result) => {
         console.log(result);
         if (result.data === "success") {
